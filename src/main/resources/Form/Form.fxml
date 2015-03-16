@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1039.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="converter.view.FormController">
   <children>
-    <Button fx:id="importButton" layoutX="86.0" layoutY="74.0" mnemonicParsing="false" mouseTransparent="false" onAction="#importButtonPressed" pickOnBounds="false" prefHeight="32.0" prefWidth="136.0" text="Import" textAlignment="CENTER" textOverrun="ELLIPSIS" />
+    <Button fx:id="importButton" layoutX="86.0" layoutY="74.0" mnemonicParsing="false"  onAction="#importButtonPressed"  prefHeight="32.0" prefWidth="136.0"  text="Import" />
     <Button fx:id="processButton" layoutX="85.0" layoutY="168.0" mnemonicParsing="false" onAction="#processButtonPressed" prefHeight="32.0" prefWidth="136.0" text="Process" />
     <Button fx:id="exportButton" layoutX="86.0" layoutY="252.0" mnemonicParsing="false" onAction="#exportButtonPressed" prefHeight="32.0" prefWidth="136.0" text="Export" />
     <SplitPane dividerPositions="0.4956521739130435" focusTraversable="true" prefHeight="629.0" prefWidth="692.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">

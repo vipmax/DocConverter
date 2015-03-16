@@ -11,9 +11,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 
@@ -25,6 +28,7 @@ public class FormController extends Application {
     public TextArea inputTextArea;
     public TextArea outputTextArea;
     private Stage stage;
+    private FileChooser fileChooser = new FileChooser();
 
     /**
      * точка входа в приложение
@@ -52,15 +56,16 @@ public class FormController extends Application {
      * @throws IOException
      */
     public void importButtonPressed(ActionEvent actionEvent) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Open file");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("doc files", "*.docx", "*.doc", "*.odt"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            System.out.println(selectedFile.getAbsolutePath());
+            System.out.println("Opening " + selectedFile.getAbsolutePath());
+
             XWPFDocument docx = new XWPFDocument(new FileInputStream(selectedFile));
             XWPFWordExtractor we = new XWPFWordExtractor(docx);
             String text = we.getText();
+
             inputTextArea.setText(text);
         }
     }
@@ -79,7 +84,27 @@ public class FormController extends Application {
      * @param actionEvent
      * @throws IOException
      */
-    public void exportButtonPressed(ActionEvent actionEvent) {
+    public void exportButtonPressed(ActionEvent actionEvent) throws IOException {
 
+        fileChooser.setTitle("Save file");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("doc file", "*.docx", "*.doc", "*.odt"));
+        File selectedFile = fileChooser.showSaveDialog(stage);
+        if (selectedFile != null) {
+            System.out.println("Saving " + selectedFile.getAbsolutePath());
+            if (selectedFile.getName().endsWith(".doc") || selectedFile.getName().endsWith(".docx")) {
+
+
+                XWPFDocument document = new XWPFDocument();
+                XWPFParagraph paragraph = document.createParagraph();
+                XWPFRun tmpRun = paragraph.createRun();
+                tmpRun.setText(outputTextArea.getText());
+                tmpRun.setFontSize(20);
+                FileOutputStream fos = new FileOutputStream(selectedFile);
+                document.write(fos);
+                fos.close();
+            }
+
+
+        }
     }
 }
